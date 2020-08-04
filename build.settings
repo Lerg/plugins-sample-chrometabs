@@ -1,7 +1,15 @@
---
--- For more information on build.settings see the Corona Build Guide at:
--- http://docs.coronalabs.com/guide/distribution/buildSettings/index.html
---
+local spiralcodestudio_patreon_email = 'YOUR_EMAIL'
+local spiralcodestudio_key = 'YOUR_ACCESS_KEY'
+
+local function spiralcodestudio_plugin(name)
+	local plugin = {publisherId = 'com.spiralcodestudio', supportedPlatforms = {}}
+	local platforms = {'android', 'appletvos', 'appletvsimulator', 'iphone', 'iphone-sim', 'mac-sim', 'win32-sim'}
+	for i = 1, #platforms do
+		local platform = platforms[i]
+		plugin.supportedPlatforms[platform] = {url = 'https://build.spiralcodestudio.com/' .. spiralcodestudio_patreon_email .. '/' .. spiralcodestudio_key .. '/solar2d/' .. name .. '_' .. platform .. '.tgz'}
+	end
+	return plugin
+end
 
 settings = 
 {
@@ -22,8 +30,6 @@ settings =
 		},
 	},
 	plugins = {
-		['plugin.chrometabs'] = {
-			publisherId = 'com.spiralcodestudio'
-		}
+		['plugin.chrometabs'] = spiralcodestudio_plugin('chrometabs')
 	}
 }
